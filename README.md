@@ -1,2 +1,2 @@
 # My Hammerspoon config
-Configuration for [Hammerspoon] (http://www.hammerspoon.org/)
+Configuration for [Hammerspoon](http://www.hammerspoon.org/)
