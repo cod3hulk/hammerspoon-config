@@ -1,70 +1,9 @@
 local mod = {}
-
-local commandMode = hs.hotkey.modal.new()
-
-function pressKey(modifiers, character)
-    local event = require("hs.eventtap").event
-    event.newKeyEvent(modifiers, string.lower(character), true):post()
-    event.newKeyEvent(modifiers, string.lower(character), false):post()
-end
-
--- VI bindings
-function volumeDown() 
-    hs.eventtap.event.newSystemKeyEvent("SOUND_DOWN", true):post()
-    hs.timer.usleep(200000)
-    hs.eventtap.event.newSystemKeyEvent("SOUND_DOWN", false):post()
-end
-commandMode:bind({}, ';', volumeDown, nil, volumeDown)
-
-function volumeUp() 
-    hs.eventtap.event.newSystemKeyEvent("SOUND_UP", true):post()
-    hs.timer.usleep(200000)
-    hs.eventtap.event.newSystemKeyEvent("SOUND_UP", false):post()
-end
-commandMode:bind({}, "'", volumeUp, nil, volumeUp)
-
-function previous() 
-    hs.eventtap.event.newSystemKeyEvent("PREVIOUS", true):post()
-end
-commandMode:bind({}, '[', previous, nil, previous)
-
-function next() 
-    hs.eventtap.event.newSystemKeyEvent("NEXT", true):post()
-end
-commandMode:bind({}, ']', next, nil, next)
-
-function play() 
-    hs.eventtap.event.newSystemKeyEvent("PLAY", true):post()
-end
-commandMode:bind({}, 'p', play, nil, play)
-
-function right() pressKey({}, "Right") end
-commandMode:bind({}, 'l', right, nil, right)
-
-function left() pressKey({}, "Left") end
-commandMode:bind({}, 'h', left, nil, left)
-
-function up() pressKey({}, "Up") end
-commandMode:bind({}, 'k', up, nil, up)
-
-function down() pressKey({}, "Down") end
-commandMode:bind({}, 'j', down, nil, down)
-
-function endWord() pressKey({"alt"}, "Right") end
-commandMode:bind({}, 'e', endWord, nil, endWord)
-
-function beginWord() pressKey({"alt"}, "Left") end
-commandMode:bind({}, 'b', beginWord, nil, beginWord)
-
-commandMode:bind({"shift"}, '4', function()
-    hs.eventtap.keyStroke({"cmd"}, "Right")
-end)
-
-commandMode:bind({}, '0', function()
-    hs.eventtap.keyStroke({"cmd"}, "Left")
-end)
+local event = require("hs.eventtap").event
 
 -- Toggle command mode
+local commandMode = hs.hotkey.modal.new()
+
 leaveCommandMode = hs.eventtap.new({ hs.eventtap.event.types.keyUp }, function(e)
     local keyCode = e:getKeyCode()
     if keyCode == 79 then
@@ -83,7 +22,100 @@ enterCommandMode = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function
     return false
 end)
 
+-- key functions
+function pressSystemKey(key)
+    hs.eventtap.event.newSystemKeyEvent(key, true):post()
+    hs.timer.usleep(100000)
+    hs.eventtap.event.newSystemKeyEvent(key, false):post()
+end
+
+function pressKey(modifiers, character)
+    event.newKeyEvent(modifiers, string.lower(character), true):post()
+    hs.timer.usleep(100000)
+    event.newKeyEvent(modifiers, string.lower(character), false):post()
+end
+
+-- MEDIA KEYS
+function volumeDown() 
+    pressSystemKey("SOUND_DOWN")
+end
+
+function volumeUp() 
+    pressSystemKey("SOUND_UP")
+end
+
+function previous() 
+    pressSystemKey("PREVIOUS")
+end
+
+function next() 
+    pressSystemKey("NEXT")
+end
+
+function play() 
+    pressSystemKey("PLAY")
+end
+
+function mute() 
+    pressSystemKey("MUTE")
+end
+
+function bindMediaKeys(modal)
+    modal:bind({}, ';', volumeDown)
+    modal:bind({}, "'", volumeUp)
+    modal:bind({}, '[', previous)
+    modal:bind({}, ']', next)
+    modal:bind({}, 'p', play)
+    modal:bind({}, 'm', mute)
+end
+
+-- VI KEYS
+function right() 
+    pressKey({}, "Right") 
+end
+
+function left() 
+    pressKey({}, "Left") 
+end
+
+function up() 
+    pressKey({}, "Up") 
+end
+
+function down() 
+    pressKey({}, "Down") 
+end
+
+function endWord() 
+    pressKey({"alt"}, "Right") 
+end
+
+function beginWord() 
+    pressKey({"alt"}, "Left") 
+end
+
+function moveToEOL()
+    pressKey({"cmd"}, "Right")
+end
+
+function moveToSOL()
+    pressKey({"cmd"}, "Left")
+end
+
+function bindViKeys(modal)
+    modal:bind({}, 'h', left)
+    modal:bind({}, 'l', right)
+    modal:bind({}, 'k', up)
+    modal:bind({}, 'j', down)
+    modal:bind({}, 'e', endWord)
+    modal:bind({}, 'b', beginWord)
+    modal:bind({"shift"}, '4', moveToEOL)
+    modal:bind({}, '0', moveToSOL)
+end
+
 function mod:start()
+    bindMediaKeys(commandMode)
+    bindViKeys(commandMode)
     leaveCommandMode:start()
     enterCommandMode:start()
 end
