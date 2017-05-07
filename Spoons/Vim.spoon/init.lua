@@ -9,6 +9,35 @@ function pressKey(modifiers, character)
 end
 
 -- VI bindings
+function volumeDown() 
+    hs.eventtap.event.newSystemKeyEvent("SOUND_DOWN", true):post()
+    hs.timer.usleep(200000)
+    hs.eventtap.event.newSystemKeyEvent("SOUND_DOWN", false):post()
+end
+commandMode:bind({}, ';', volumeDown, nil, volumeDown)
+
+function volumeUp() 
+    hs.eventtap.event.newSystemKeyEvent("SOUND_UP", true):post()
+    hs.timer.usleep(200000)
+    hs.eventtap.event.newSystemKeyEvent("SOUND_UP", false):post()
+end
+commandMode:bind({}, "'", volumeUp, nil, volumeUp)
+
+function previous() 
+    hs.eventtap.event.newSystemKeyEvent("PREVIOUS", true):post()
+end
+commandMode:bind({}, '[', previous, nil, previous)
+
+function next() 
+    hs.eventtap.event.newSystemKeyEvent("NEXT", true):post()
+end
+commandMode:bind({}, ']', next, nil, next)
+
+function play() 
+    hs.eventtap.event.newSystemKeyEvent("PLAY", true):post()
+end
+commandMode:bind({}, 'p', play, nil, play)
+
 function right() pressKey({}, "Right") end
 commandMode:bind({}, 'l', right, nil, right)
 
