@@ -1,27 +1,6 @@
 local mod = {}
 local event = require("hs.eventtap").event
 
--- Toggle command mode
-local commandMode = hs.hotkey.modal.new()
-
-leaveCommandMode = hs.eventtap.new({ hs.eventtap.event.types.keyUp }, function(e)
-    local keyCode = e:getKeyCode()
-    if keyCode == 79 then
-        print("Leave command mode...")
-        commandMode:exit()
-    end
-    return false
-end)
-
-enterCommandMode = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(e)
-    local keyCode = e:getKeyCode()
-    if keyCode == 79 then
-        print("Enter command mode...")
-        commandMode:enter()
-    end
-    return false
-end)
-
 -- key functions
 function pressSystemKey(key)
     hs.eventtap.event.newSystemKeyEvent(key, true):post()
@@ -60,7 +39,7 @@ function mute()
     pressSystemKey("MUTE")
 end
 
-function bindMediaKeys(modal)
+function mod:bindMediaKeys(modal)
     modal:bind({}, ';', volumeDown)
     modal:bind({}, "'", volumeUp)
     modal:bind({}, '[', previous)
@@ -102,7 +81,8 @@ function moveToSOL()
     pressKey({"cmd"}, "Left")
 end
 
-function bindViKeys(modal)
+function mod:bindViKeys(modal)
+    print(modal)
     modal:bind({}, 'h', left)
     modal:bind({}, 'l', right)
     modal:bind({}, 'k', up)
@@ -111,13 +91,6 @@ function bindViKeys(modal)
     modal:bind({}, 'b', beginWord)
     modal:bind({"shift"}, '4', moveToEOL)
     modal:bind({}, '0', moveToSOL)
-end
-
-function mod:start()
-    bindMediaKeys(commandMode)
-    bindViKeys(commandMode)
-    leaveCommandMode:start()
-    enterCommandMode:start()
 end
 
 return mod
