@@ -1,9 +1,10 @@
 -- load plugins
 hs.loadSpoon("Hyper")
 hs.loadSpoon("Vim")
+hs.loadSpoon("Media")
 
--- Toggle command mode
-spoon.Vim:bindViKeys(spoon.Hyper:commandMode())
-spoon.Vim:bindMediaKeys(spoon.Hyper:commandMode())
+-- bind plugins to modal
+local commandMode = spoon.Hyper:commandMode()
+spoon.Vim:bindModal(commandMode)
+spoon.Media:bindModal(commandMode)
 
-spoon.Hyper.start()

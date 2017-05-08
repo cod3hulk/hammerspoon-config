@@ -1,51 +1,9 @@
-local mod = {}
 local event = require("hs.eventtap").event
-
--- key functions
-function pressSystemKey(key)
-    hs.eventtap.event.newSystemKeyEvent(key, true):post()
-    hs.timer.usleep(50000)
-    hs.eventtap.event.newSystemKeyEvent(key, false):post()
-end
+local mod = {}
 
 function pressKey(modifiers, character)
     event.newKeyEvent(modifiers, string.lower(character), true):post()
-    hs.timer.usleep(50000)
     event.newKeyEvent(modifiers, string.lower(character), false):post()
-end
-
--- MEDIA KEYS
-function volumeDown() 
-    pressSystemKey("SOUND_DOWN")
-end
-
-function volumeUp() 
-    pressSystemKey("SOUND_UP")
-end
-
-function previous() 
-    pressSystemKey("PREVIOUS")
-end
-
-function next() 
-    pressSystemKey("NEXT")
-end
-
-function play() 
-    pressSystemKey("PLAY")
-end
-
-function mute() 
-    pressSystemKey("MUTE")
-end
-
-function mod:bindMediaKeys(modal)
-    modal:bind({}, ';', volumeDown)
-    modal:bind({}, "'", volumeUp)
-    modal:bind({}, '[', previous)
-    modal:bind({}, ']', next)
-    modal:bind({}, 'p', play)
-    modal:bind({}, 'm', mute)
 end
 
 -- VI KEYS
@@ -81,8 +39,7 @@ function moveToSOL()
     pressKey({"cmd"}, "Left")
 end
 
-function mod:bindViKeys(modal)
-    print(modal)
+function mod:bindModal(modal)
     modal:bind({}, 'h', left)
     modal:bind({}, 'l', right)
     modal:bind({}, 'k', up)

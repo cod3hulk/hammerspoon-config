@@ -25,7 +25,7 @@ function mod:commandMode()
     return commandMode
 end
 
-function mod:start()
+function mod:init()
     leaveCommandMode:start()
     enterCommandMode:start()
 end
