@@ -39,7 +39,7 @@ function moveToSOL()
     pressKey({"cmd"}, "Left")
 end
 
-function mod:bindModal(modal)
+function mod.bindKeys(modal)
     modal:bind({}, 'h', left)
     modal:bind({}, 'l', right)
     modal:bind({}, 'k', up)

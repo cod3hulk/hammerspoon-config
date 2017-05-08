@@ -31,7 +31,7 @@ function mute()
     pressSystemKey("MUTE")
 end
 
-function mod:bindModal(modal)
+function mod.bindKeys(modal)
     modal:bind({}, ';', volumeDown)
     modal:bind({}, "'", volumeUp)
     modal:bind({}, '[', previous)

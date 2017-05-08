@@ -1,7 +1,7 @@
 local mod = {}
 
 -- Toggle command mode
-commandMode = hs.hotkey.modal.new()
+local commandMode = hs.hotkey.modal.new()
 
 local leaveCommandMode = hs.eventtap.new({ hs.eventtap.event.types.keyUp }, function(e)
     local keyCode = e:getKeyCode()
@@ -21,11 +21,11 @@ local enterCommandMode = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, fu
     return false
 end)
 
-function mod:commandMode()
+function mod.commandMode()
     return commandMode
 end
 
-function mod:init()
+function mod.init()
     leaveCommandMode:start()
     enterCommandMode:start()
 end
