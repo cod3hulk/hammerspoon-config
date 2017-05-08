@@ -25,13 +25,13 @@ end)
 -- key functions
 function pressSystemKey(key)
     hs.eventtap.event.newSystemKeyEvent(key, true):post()
-    hs.timer.usleep(100000)
+    hs.timer.usleep(50000)
     hs.eventtap.event.newSystemKeyEvent(key, false):post()
 end
 
 function pressKey(modifiers, character)
     event.newKeyEvent(modifiers, string.lower(character), true):post()
-    hs.timer.usleep(100000)
+    hs.timer.usleep(50000)
     event.newKeyEvent(modifiers, string.lower(character), false):post()
 end
 
