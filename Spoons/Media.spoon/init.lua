@@ -15,11 +15,11 @@ function volumeUp()
     pressSystemKey("SOUND_UP")
 end
 
-function previous() 
+function previousTitle() 
     pressSystemKey("PREVIOUS")
 end
 
-function next() 
+function nextTitle() 
     pressSystemKey("NEXT")
 end
 
@@ -34,8 +34,8 @@ end
 function mod.bindKeys(modal)
     modal:bind({}, ';', volumeDown)
     modal:bind({}, "'", volumeUp)
-    modal:bind({}, '[', previous)
-    modal:bind({}, ']', next)
+    modal:bind({}, '[', previousTitle)
+    modal:bind({}, ']', nextTitle)
     modal:bind({}, 'p', play)
     modal:bind({}, 'm', mute)
 end
