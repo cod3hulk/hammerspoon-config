@@ -1,43 +1,20 @@
 local event = require("hs.eventtap").event
 local mod = {}
 
-function pressSystemKey(key)
-    event.newSystemKeyEvent(key, true):post()
-    event.newSystemKeyEvent(key, false):post()
-end
-
--- MEDIA KEYS
-function volumeDown() 
-    pressSystemKey("SOUND_DOWN")
-end
-
-function volumeUp() 
-    pressSystemKey("SOUND_UP")
-end
-
-function previousTitle() 
-    pressSystemKey("PREVIOUS")
-end
-
-function nextTitle() 
-    pressSystemKey("NEXT")
-end
-
-function play() 
-    pressSystemKey("PLAY")
-end
-
-function mute() 
-    pressSystemKey("MUTE")
+local pressSystemKey = function(key)
+    return function()
+        event.newSystemKeyEvent(key, true):post()
+        event.newSystemKeyEvent(key, false):post()
+    end
 end
 
 function mod.bindKeys(modal)
-    modal:bind({}, ';', volumeDown)
-    modal:bind({}, "'", volumeUp)
-    modal:bind({}, '[', previousTitle)
-    modal:bind({}, ']', nextTitle)
-    modal:bind({}, 'p', play)
-    modal:bind({}, 'm', mute)
+    modal:bind({}, ';', pressSystemKey("SOUND_DOWN"))
+    modal:bind({}, "'", pressSystemKey("SOUND_UP"))
+    modal:bind({}, '[', pressSystemKey("PREVIOUS"))
+    modal:bind({}, ']', pressSystemKey("NEXT"))
+    modal:bind({}, 'p', pressSystemKey("PLAY"))
+    modal:bind({}, 'm', pressSystemKey("MUTE"))
 end
 
 return mod
