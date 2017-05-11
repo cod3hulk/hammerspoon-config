@@ -55,7 +55,7 @@ end
 function windowHints(windows)
     out = ""
     for i, window in pairs(windows) do
-        out = out .. hintKeys[i] .. " / " .. windowDescriptor(window, maxDescriptorLength)
+        out = out .. hintKeys[i] .. ": " .. windowDescriptor(window, maxDescriptorLength)
         if i ~= #windows then out = out .. "\n" end
     end
     return out
@@ -67,7 +67,7 @@ function enterHintMode(hinter, time)
     -- show the hints
     activeWindows = hintableWindows()
     message = windowHints(activeWindows)
-    hs.alert.show(message, time)
+    hs.alert.show(message, 3)
 end
 
 --[[ factory for functions that will bind keys to the modal hinter.
