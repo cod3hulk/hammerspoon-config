@@ -9,11 +9,13 @@ hs.loadSpoon("App")
 local commandMode = spoon.Hyper.commandMode()
 
 local apps = {
-    iTerm = {'iTerm', 't'}, 
+    Mail = {'Airmail Beta', 'm'}, 
+    Calendar = {'Fantastical 2', 'c'}, 
+    Terminal = {'iTerm', 't'}, 
     Slack = {'Slack', 's'}, 
     IntelliJ = {'IntelliJ IDEA', 'i'}, 
-    DataGrip = {'DataGrip', 'd'}, 
-    Chrome = {'Google Chrome', 'c'}  
+    Editor = {'VimR', 'e'}, 
+    Browser = {'Google Chrome', 'b'}  
 }
 spoon.App.bindKeys(commandMode, apps)
 

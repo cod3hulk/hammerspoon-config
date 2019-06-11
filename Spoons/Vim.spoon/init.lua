@@ -13,8 +13,6 @@ function mod.bindKeys(modal)
     modal:bind({}, 'l', pressKey({}, "Right"))
     modal:bind({}, 'k', pressKey({}, "Up"))
     modal:bind({}, 'j', pressKey({}, "Down"))
-    modal:bind({}, 'e', pressKey({"alt"}, "Right"))
-    modal:bind({}, 'b', pressKey({"alt"}, "Left"))
 end
 
 return mod

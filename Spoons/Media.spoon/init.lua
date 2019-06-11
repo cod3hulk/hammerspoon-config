@@ -14,7 +14,7 @@ function mod.bindKeys(modal)
     modal:bind({}, '[', pressSystemKey("PREVIOUS"))
     modal:bind({}, ']', pressSystemKey("NEXT"))
     modal:bind({}, 'p', pressSystemKey("PLAY"))
-    modal:bind({}, 'm', pressSystemKey("MUTE"))
+    modal:bind({}, ',', pressSystemKey("MUTE"))
 end
 
 return mod
