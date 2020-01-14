@@ -9,7 +9,7 @@ hs.loadSpoon("App")
 local commandMode = spoon.Hyper.commandMode()
 
 local apps = {
-    Mail = {'Airmail Beta', 'm'}, 
+    Mail = {'Spark', 'm'}, 
     Calendar = {'Fantastical 2', 'c'}, 
     Terminal = {'Alacritty', 't'}, 
     Slack = {'Slack', 's'}, 
